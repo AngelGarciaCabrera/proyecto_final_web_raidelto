@@ -1,32 +1,39 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { app } from "./Firebase/configuracionfirebase";
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
+import { app} from "../Firebase/configuracionfirebase";
+import { toast, ToastContainer } from 'react-toastify';
 
+
+const auth = getAuth(app);
 function Registro() {
+  
   const [usuario, setUsuario] = useState("");
   const [clave, setClave] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
+  const [error, setError] = useState(null);
 
-const auth = getAuth(app);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, usuario, clave)
-      .then((userCredential) => {
-        // Actualizar el perfil del usuario con su nombre y apellido
-        userCredential.user.updateProfile({
-          displayName: `${nombre} ${apellido}`,
-        });
-      })
-      .catch((error) => {
-        console.error("Error al crear la cuenta:", error);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, usuario, clave);
+      // Actualizar el perfil del usuario con su nombre y apellido
+      await updateProfile(userCredential.user, {
+        displayName: `${nombre} ${apellido}`,
       });
+      toast.success("Coronamos!")
+    } catch (error) {
+      console.error("Error al crear la cuenta:", error);
+      setError(error.message);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+          
       <div>
+      <ToastContainer style={{'width' :'80px'}}/>
         <label htmlFor="usuario">Usuario:</label>
         <input
           id="usuario"
@@ -62,10 +69,11 @@ const auth = getAuth(app);
           onChange={(e) => setApellido(e.target.value)}
         />
       </div>
+      {error && <div>{error}</div>}
       <button type="submit">Registrarse</button>
     </form>
+    
   );
 }
-
 
 export default Registro;

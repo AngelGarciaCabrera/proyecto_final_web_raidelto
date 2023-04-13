@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
-import { firestoreInstance } from './Firebase/configuracionfirebase';
+import { firestoreInstance } from '../Firebase/configuracionfirebase';
 
 function Publicacion() {
     const [mensaje, setMensaje] = useState('');
@@ -23,7 +23,7 @@ function Publicacion() {
                 fecha: new Date(),
               };
 
-              const publicacionesRef = collection(firestoreInstance, 'Publicaciones')
+              const publicacionesRef = collection(firestoreInstance, 'publicaciones')
               await addDoc(publicacionesRef, nuevaPublicacion);
             } catch (error) {
               console.error('Error al agregar la publicación:', error);

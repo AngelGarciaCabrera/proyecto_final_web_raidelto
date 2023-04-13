@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
 import PublicacionesList from "./PublicacionesLista";
-import { firestoreInstance } from "./Firebase/configuracionfirebase";
+import { firestoreInstance } from "../Firebase/configuracionfirebase";
 
 
 function DatosDePublicaciones(){
