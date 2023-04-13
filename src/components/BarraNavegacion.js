@@ -1,11 +1,6 @@
-import Inicio from './Inicio';
-import Registro from './Registro';
-import InicioSesion from './InicioSesion';
 import React from 'react';
-
-
-
-
+import {Link} from "react-router-dom";
+import {isLogged, logout} from "../data/Authentications";
 
 function BarraNavegation(){
 
@@ -25,6 +20,7 @@ function BarraNavegation(){
             <li className="nav-item">
             <Link path="/inicio-sesion"></Link>
             </li>
+            <li>{ isLogged() && <a href='#' onClick={callLogout}>Cerrar sesion</a> }</li>
          </ul>
         </div>
 

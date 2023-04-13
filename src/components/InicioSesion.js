@@ -14,7 +14,7 @@ function InicioSesion() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password)
       toast.success("Coronamos!")
     } catch (error) {
       setError(error.message);
@@ -23,7 +23,6 @@ function InicioSesion() {
 
   return (
     <div>
-      <ToastContainer style={{'width' :'80px'}}/>
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div>
