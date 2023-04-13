@@ -41,8 +41,8 @@ function Inicio() {
 
              {loggeado && <Publicacion /> }
         </div>
-        
-        
+
+
     );
 }
 

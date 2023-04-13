@@ -8,23 +8,27 @@ import React from 'react';
 
 
 function BarraNavegation(){
-    
+
+    function callLogout() {
+        logout();
+    }
 
     return (
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Active</a>
+        <div>
+        <ul className="nav flex-column">
+            <li className="nav-item">
+                <Link to='/'>Inicio</Link>
             </li>
-            <li class="nav-item">
-              <link exact path="/" element={<Inicio/>} />
+            <li className="nav-item">
+                <Link to="/registro">Registro</Link>
             </li>
-            <li class="nav-item">
-                 <Route path="/registro" element={<Registro/>} />
-            </li>
-            <li class="nav-item">
-            <Route path="/inicio-sesion" element={<InicioSesion onLogin={handleLogin}/>} />
+            <li className="nav-item">
+            <Link path="/inicio-sesion"></Link>
             </li>
          </ul>
+        </div>
+
+
     );
 
 }

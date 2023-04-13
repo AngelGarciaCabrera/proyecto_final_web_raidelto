@@ -1,19 +1,28 @@
 import React from "react";
+import BarraNavegacion from "./BarraNavegacion";
 
 function Layout(props) {
 
     return (
         <div>
-            <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
-                        Bootstrap
+            <nav className="navbar bg-info" style={{height: 90}}>
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="#">
+                        <img src="https://www.nationalgeographic.com.es/medio/2021/10/02/ghost_5965d71c_800x600.jpg" alt="Logo" width="30" height="24"
+                             className="d-inline-block align-text-top" />
+                            <span>Bootstrap</span>
                     </a>
                 </div>
             </nav>
-            
-            {props.children}
+                <BarraNavegacion />
+            <div>
+                <div className='d-flex w-25'>
+
+                </div>
+                <div className='card'>
+                    {props && props.children}
+                </div>
+            </div>
         </div>
     );
 
