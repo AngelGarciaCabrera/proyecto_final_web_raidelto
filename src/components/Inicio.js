@@ -10,14 +10,14 @@ function Inicio() {
     }
 
     return (
-        <div>
-            <div>
-                <h1>Bienvenido a la página principal</h1>
-             </div>  
-
-             {isLogged() && <Publicacion /> }
+        <div className="">
+            <div className="row justify-content-center">
+                <div className="col-md-8 text-center">
+                    <h1>Bienvenido a la página principal</h1>
+                </div>
+            </div>
+            {isLogged() && <Publicacion />}
         </div>
-
 
     );
 }

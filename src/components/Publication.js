@@ -1,62 +1,77 @@
-import React, { useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
-import { firestoreInstance } from '../Firebase/configuracionfirebase';
+import React, {useState} from 'react';
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import {addDoc, collection} from 'firebase/firestore';
+import {firestoreInstance} from '../Firebase/configuracionfirebase';
+import {getUser, isLogged} from "../data/Authentications";
+import {toast} from "react-toastify";
 
 function Publicacion() {
-    const [mensaje, setMensaje] = useState('');
+
     const [titulo, setTitulo] = useState('');
     const [contenido, setContenido] = useState('');
 
-    const auth = getAuth();
+    const user = getUser();
 
     const handleSubmit = async (event) => {
+
         event.preventDefault();
 
-        onAuthStateChanged(auth, async (user) => {
-          if (user) {
-            try {
-              const nuevaPublicacion = {
+        if (isLogged()) {
+
+            const nuevaPublicacion = {
                 titulo: titulo,
                 contenido: contenido,
-                usuario: user.uid,
+                usuarioID: user.uid,
+                usuario: user.displayName,
                 fecha: new Date(),
-              };
+            };
 
-              const publicacionesRef = collection(firestoreInstance, 'publicaciones')
-              await addDoc(publicacionesRef, nuevaPublicacion);
-            } catch (error) {
-              console.error('Error al agregar la publicación:', error);
-            }
-          } else {
-            console.log('Usuario no autenticado');
-          }
-        });
-      };
+            const publicacionesRef = collection(firestoreInstance, 'publicaciones')
+            addDoc(publicacionesRef, nuevaPublicacion).then(() => {
+                toast.success("Publicacion Enviada")
+            }).catch(() => {
+                toast.error('Error al agregar la publicación:');
+            });
+        }
+    };
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="titulo">Título:</label>
-                <input
-                    id="titulo"
-                    type="text"
-                    value={titulo}
-                    onChange={(e) => setTitulo(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="contenido">Contenido:</label>
-                <textarea
-                    id="contenido"
-                    value={contenido}
-                    onChange={(e) => setContenido(e.target.value)}
-                ></textarea>
-            </div>
-            {mensaje && <p>{mensaje}</p>}
-            <button type="submit">Publicar</button>
-        </form>
+        <div className="p-3">
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <span>Bienvenido <strong>{user.displayName}</strong></span>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="titulo" className="form-label">
+                        Título:
+                    </label>
+                    <input
+                        id="titulo"
+                        type="text"
+                        className="form-control"
+                        value={titulo}
+                        onChange={(e) => setTitulo(e.target.value)}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="contenido" className="form-label">
+                        Contenido:
+                    </label>
+                    <textarea
+                        id="contenido"
+                        className="form-control"
+                        value={contenido}
+                        onChange={(e) => setContenido(e.target.value)}
+                    ></textarea>
+                </div>
+
+
+                <button type="submit" className="btn btn-primary">
+                    Publicar
+                </button>
+            </form>
+        </div>
     );
 }
 

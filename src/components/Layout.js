@@ -5,12 +5,12 @@ function Layout(props) {
 
     return (
         <div>
-            <nav className="navbar bg-info" style={{height: 90}}>
+            <nav className="navbar bg-success" style={{height: 90}}>
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">
-                        <img src="https://www.nationalgeographic.com.es/medio/2021/10/02/ghost_5965d71c_800x600.jpg" alt="Logo" width="30" height="24"
+                        <img src="foto.png" alt="Logo" width="50" height="40"
                              className="d-inline-block align-text-top" />
-                            <span>Bootstrap</span>
+                            <span className={'text-white'}> Tus Publicaciones Web</span>
                     </a>
                 </div>
             </nav>
@@ -19,10 +19,23 @@ function Layout(props) {
                 <div className='d-flex w-25'>
 
                 </div>
-                <div className='card'>
-                    {props && props.children}
+                <div className='' style={{
+                    paddingTop:'2%',
+                    width: '75%',
+                    left: '25%',
+                    position:' relative',
+
+
+
+                }}>
+                        <div className=''>
+                            {props && props.children}
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
+
         </div>
     );
 

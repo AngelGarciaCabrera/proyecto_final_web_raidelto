@@ -8,11 +8,13 @@ export function addOnChangeUserData(callback) {
         callback(user);
     });
 
-    return onChangeAction();
+    return onChangeAction;
 }
 
 export function isLogged(){
-    return getUser() !== undefined;
+    const user = getUser();
+    return user !== null
+
 }
 
 export function getUser() {
